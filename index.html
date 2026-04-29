@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seashi — Lên kế hoạch dễ dàng cho hành trình mơ ước</title>
+    <meta
+      name="description"
+      content="Seashi mang đến hàng trăm lựa chọn để chuyến đi của bạn trọn vẹn hơn. Lập kế hoạch chuyến đi mơ ước nhanh chóng và dễ dàng."
+    />
+
+    <!-- Fonts: distinctive, non-generic pairing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind via CDN with inline config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Manrope"', "system-ui", "sans-serif"],
+              sans: ['"Manrope"', "system-ui", "sans-serif"],
+              serif: ['"Playfair Display"', "Georgia", "serif"],
+            },
+            colors: {
+              brand: {
+                50: "#eff8ff",
+                100: "#dbeefe",
+                200: "#bfe2fe",
+                300: "#93d0fd",
+                400: "#60b5fa",
+                500: "#3b96f6",
+                600: "#2479ec",
+                700: "#1c64d8",
+                800: "#1d52af",
+                900: "#1e478a",
+              },
+              ink: {
+                50: "#f6f7f9",
+                100: "#ebedf2",
+                200: "#d3d8e2",
+                300: "#aab4c5",
+                400: "#7a87a0",
+                500: "#5b6885",
+                600: "#46526c",
+                700: "#3a4258",
+                800: "#1a2236",
+                900: "#0d1424",
+              },
+            },
+            boxShadow: {
+              soft: "0 12px 40px -12px rgba(15, 23, 42, 0.18)",
+              card: "0 20px 60px -25px rgba(15, 23, 42, 0.35)",
+              cta: "0 18px 40px -18px rgba(36, 121, 236, 0.55)",
+            },
+            backgroundImage: {
+              "grain":
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>\")",
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="font-sans bg-[#f4f6fb] text-ink-800 antialiased">
+    <!-- ============= HEADER ============= -->
+    <header class="absolute inset-x-0 top-0 z-40">
+      <div
+        class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10 md:py-7"
+      >
+        <a
+          href="#"
+          class="font-display text-xl font-semibold tracking-tight text-ink-900 md:text-2xl"
+        >
+          Seashi<span class="text-brand-500">.</span>
+        </a>
+
+        <nav class="hidden items-center gap-9 text-sm text-ink-700 lg:flex">
+          <a class="nav-link nav-link--active" href="#home">Trang chủ</a>
+          <a class="nav-link" href="#about">Giới thiệu</a>
+          <a class="nav-link" href="#service">Dịch vụ</a>
+          <a class="nav-link" href="#blog">Bài viết</a>
+          <a class="nav-link" href="#contact">Liên hệ</a>
+        </nav>
+
+        <a
+          href="#book"
+          class="hidden items-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-sm font-medium text-white shadow-cta transition hover:bg-brand-600 md:inline-flex"
+        >
+          Đặt ngay
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+
+        <button
+          id="menu-toggle"
+          aria-label="Open menu"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink-200 bg-white text-ink-800 lg:hidden"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="14" y2="17" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="hidden border-t border-ink-100 bg-white/95 backdrop-blur lg:hidden"
+      >
+        <div class="space-y-2 px-5 py-4 text-sm">
+          <a class="block py-2" href="#home">Trang chủ</a>
+          <a class="block py-2" href="#about">Giới thiệu</a>
+          <a class="block py-2" href="#service">Dịch vụ</a>
+          <a class="block py-2" href="#blog">Bài viết</a>
+          <a class="block py-2" href="#contact">Liên hệ</a>
+          <a
+            href="#book"
+            class="mt-2 inline-flex items-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-white"
+          >
+            Đặt ngay
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============= HERO ============= -->
+    <section
+      id="home"
+      class="relative mx-auto max-w-7xl px-5 pt-28 md:px-10 md:pt-32"
+    >
+      <div
+        class="hero-card relative overflow-hidden rounded-[28px] md:rounded-[36px]"
+      >
+        <img
+          class="absolute inset-0 h-full w-full object-cover"
+          src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=80"
+          alt="Vịnh Hạ Long lúc bình minh"
+          loading="eager"
+        />
+        <!-- layered overlays: dim top, deepen bottom for text contrast -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-black/75"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent"></div>
+
+        <div
+          class="relative flex min-h-[640px] flex-col justify-between px-6 py-10 sm:px-10 md:min-h-[720px] md:px-14 md:py-14"
+        >
+          <!-- spacer for nav overlay -->
+          <div></div>
+
+          <div class="max-w-2xl">
+            <h1
+              class="font-display text-[44px] font-semibold leading-[1.02] tracking-tight text-white sm:text-[56px] md:text-[68px] lg:text-[80px]"
+            >
+              Lên kế hoạch cho<br />
+              <span class="font-serif italic font-normal text-white/95">Hành trình mơ&nbsp;ước.</span>
+            </h1>
+            <p
+              class="mt-7 max-w-lg text-[15px] leading-relaxed text-white/80 md:text-base"
+            >
+              Seashi mang đến hàng trăm lựa chọn để chuyến đi của bạn trọn vẹn
+              hơn — đơn giản, nhanh chóng và đầy cảm hứng.
+            </p>
+
+            <!-- Search card -->
+            <form
+              class="mt-10 flex w-full max-w-xl items-stretch gap-2 rounded-[22px] bg-white/95 p-2.5 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.45)] backdrop-blur-md ring-1 ring-white/50"
+              onsubmit="event.preventDefault();"
+            >
+              <label
+                class="flex flex-1 items-center gap-3 rounded-2xl px-3 py-2 transition hover:bg-ink-50/60"
+              >
+                <span
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"
+                    />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </span>
+                <span class="flex flex-col leading-tight">
+                  <span class="text-[11px] font-medium text-ink-400"
+                    >Địa điểm</span
+                  >
+                  <input
+                    type="text"
+                    value="Hạ Long, Quảng Ninh"
+                    class="w-full bg-transparent text-[15px] font-medium text-ink-800 outline-none"
+                  />
+                </span>
+              </label>
+
+              <span
+                class="my-2 hidden w-px bg-ink-100 sm:block"
+                aria-hidden="true"
+              ></span>
+
+              <label
+                class="hidden flex-1 items-center gap-3 rounded-2xl px-3 py-2 transition hover:bg-ink-50/60 sm:flex"
+              >
+                <span
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="3" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </span>
+                <span class="flex flex-col leading-tight">
+                  <span class="text-[11px] font-medium text-ink-400">Ngày đi</span>
+                  <input
+                    type="text"
+                    value="17/10/2026"
+                    class="w-full bg-transparent text-[15px] font-medium text-ink-800 outline-none"
+                  />
+                </span>
+              </label>
+
+              <button
+                aria-label="Search"
+                class="flex h-12 w-12 shrink-0 items-center justify-center self-center rounded-full bg-brand-500 text-white transition hover:bg-brand-600"
+              >
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <div
+            class="mt-12 flex flex-col gap-4 border-t border-white/15 pt-5 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <p class="text-[11px] tracking-[0.35em] text-white/70">
+              THIẾT KẾ BỞI TURJA
+            </p>
+            <div class="flex items-center gap-5 text-white/75">
+              <span class="text-[10px] uppercase tracking-[0.25em]">Được vinh danh</span>
+              <span class="award-pill">
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84 5.34.78-3.86 3.77.91 5.32L12 14.27l-4.78 2.51.91-5.32L4.27 7.62l5.34-.78L12 2z"/></svg>
+                Prestigious 2026
+              </span>
+              <span class="award-pill">
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84 5.34.78-3.86 3.77.91 5.32L12 14.27l-4.78 2.51.91-5.32L4.27 7.62l5.34-.78L12 2z"/></svg>
+                Ultimate Winner
+              </span>
+              <span class="award-pill hidden md:inline-flex">
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84 5.34.78-3.86 3.77.91 5.32L12 14.27l-4.78 2.51.91-5.32L4.27 7.62l5.34-.78L12 2z"/></svg>
+                Hyper Best
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= BRANDS ============= -->
+    <section class="mx-auto max-w-7xl px-5 py-14 md:px-10 md:py-20">
+      <div
+        class="grid grid-cols-2 items-center gap-y-8 sm:grid-cols-3 md:flex md:flex-wrap md:justify-between"
+      >
+        <!-- brand -->
+        <div class="brand-row">
+          <span class="brand-icon bg-ink-900 text-white">N</span>
+          <span class="brand-name">Netdot</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-icon">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor">
+              <path
+                d="M12 2L2 8.5 12 15l10-6.5L12 2zM2 14.5L12 21l10-6.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                fill="none"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="brand-name">Sparkweb</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-icon">
+            <svg
+              viewBox="0 0 24 24"
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect x="3" y="3" width="8" height="8" rx="1.5" />
+              <rect x="13" y="3" width="8" height="8" rx="1.5" />
+              <rect x="3" y="13" width="8" height="8" rx="1.5" />
+              <rect x="13" y="13" width="8" height="8" rx="1.5" />
+            </svg>
+          </span>
+          <span class="brand-name">Pixelpath</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-icon bg-ink-900 text-white">C</span>
+          <span class="brand-name">CodeLine</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-icon">
+            <svg
+              viewBox="0 0 24 24"
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v18M3 12h18" />
+            </svg>
+          </span>
+          <span class="brand-name">Digitech</span>
+        </div>
+        <div class="brand-row">
+          <span class="brand-icon">
+            <svg
+              viewBox="0 0 24 24"
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9 9l-3 3 3 3M15 9l3 3-3 3" />
+            </svg>
+          </span>
+          <span class="brand-name">Codelink</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= DESTINATIONS ============= -->
+    <section class="mx-auto max-w-7xl px-5 pb-16 md:px-10 md:pb-24">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
+        <!-- left tall card -->
+        <article
+          class="dest-card group md:col-span-4 md:row-span-2 md:h-[640px]"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"
+            alt="Vịnh Hạ Long"
+            loading="lazy"
+          />
+          <div class="dest-overlay"></div>
+          <div class="dest-info">
+            <div>
+              <h3 class="dest-title">Vịnh Hạ Long</h3>
+              <div class="dest-meta">
+                <svg
+                  class="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Quảng Ninh, Việt Nam
+              </div>
+            </div>
+            <div class="dest-price">
+              <span class="text-lg font-semibold">2.490K</span>
+              <span class="text-[11px] text-ink-500">/ Khách</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- middle tall card -->
+        <article
+          class="dest-card group md:col-span-4 md:row-span-2 md:h-[640px]"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1200&q=80"
+            alt="Phố cổ Hội An"
+            loading="lazy"
+          />
+          <div class="dest-overlay"></div>
+          <div class="dest-info">
+            <div>
+              <h3 class="dest-title">Phố cổ Hội An</h3>
+              <div class="dest-meta">
+                <svg
+                  class="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Quảng Nam, Việt Nam
+              </div>
+            </div>
+            <div class="dest-price">
+              <span class="text-lg font-semibold">3.190K</span>
+              <span class="text-[11px] text-ink-500">/ Khách</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- right top -->
+        <article class="dest-card group md:col-span-4 md:h-[310px]">
+          <img
+            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80"
+            alt="Mù Cang Chải"
+            loading="lazy"
+          />
+          <div class="dest-overlay"></div>
+          <div class="dest-info">
+            <div>
+              <h3 class="dest-title">Mù Cang Chải</h3>
+              <div class="dest-meta">
+                <svg
+                  class="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Yên Bái, Việt Nam
+              </div>
+            </div>
+            <div class="dest-price">
+              <span class="text-lg font-semibold">2.890K</span>
+              <span class="text-[11px] text-ink-500">/ Khách</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- right bottom -->
+        <article class="dest-card group md:col-span-4 md:h-[310px]">
+          <img
+            src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=1200&q=80"
+            alt="Đảo Phú Quốc"
+            loading="lazy"
+          />
+          <div class="dest-overlay"></div>
+          <div class="dest-info">
+            <div>
+              <h3 class="dest-title">Đảo Phú Quốc</h3>
+              <div class="dest-meta">
+                <svg
+                  class="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Kiên Giang, Việt Nam
+              </div>
+            </div>
+            <div class="dest-price">
+              <span class="text-lg font-semibold">3.690K</span>
+              <span class="text-[11px] text-ink-500">/ Khách</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- explore destination strip -->
+      <div
+        class="mt-6 flex flex-col items-center justify-between gap-4 rounded-[28px] bg-brand-500 px-6 py-5 text-white sm:flex-row md:px-9 md:py-6"
+      >
+        <div class="flex items-center gap-5">
+          <span class="font-display text-4xl font-medium md:text-5xl">63+</span>
+          <span class="text-sm leading-tight md:text-base">
+            Tỉnh thành<br />trên cả nước
+          </span>
+        </div>
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-ink-900 transition hover:bg-ink-50"
+        >
+          Khám phá điểm đến
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============= HOW WE WORK ============= -->
+    <section
+      id="service"
+      class="mx-auto max-w-7xl px-5 pb-16 md:px-10 md:pb-24"
+    >
+      <div class="mb-10">
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-1.5 text-xs text-ink-700"
+        >
+          Cách thức hoạt động ?
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
+        <div>
+          <h2
+            class="font-display text-4xl font-medium leading-tight text-ink-900 sm:text-5xl md:text-[56px]"
+          >
+            Hành trình quan trọng<br />
+            <span class="font-serif italic font-normal">hơn cả đích đến.</span>
+          </h2>
+          <p class="mt-5 max-w-md text-sm leading-relaxed text-ink-500">
+            Tham gia cùng hơn 1 tỷ du khách đã tìm được kỳ nghỉ lý tưởng tại
+            hơn 220 quốc gia và vùng lãnh thổ.
+          </p>
+
+          <ul class="mt-10 space-y-3">
+            <li>
+              <button
+                class="step-item step-item--active w-full text-left"
+                data-step="01"
+              >
+                <span class="step-radio"></span>
+                <div class="step-body">
+                  <span class="step-title"
+                    ><span class="text-ink-400">01/</span> Linh hoạt theo cách
+                    của bạn</span
+                  >
+                  <p class="step-desc">
+                    Dù bạn đi công tác hay chuyển đến một thành phố mới, hãy
+                    tìm những căn hộ và khách sạn boutique được đánh giá 5 sao
+                    bởi cộng đồng du khách. Từ hệ thống thanh toán bảo mật đến
+                    đánh giá từ khách trước &mdash; Seashi luôn đặt sự an toàn
+                    của bạn lên hàng đầu.
+                  </p>
+                </div>
+              </button>
+            </li>
+            <li>
+              <button class="step-item w-full text-left" data-step="02">
+                <span class="step-radio"></span>
+                <div class="step-body">
+                  <span class="step-title"
+                    ><span class="text-ink-400">02/</span> Hơn 7 triệu chỗ ở
+                    đang hoạt động</span
+                  >
+                </div>
+              </button>
+            </li>
+            <li>
+              <button class="step-item w-full text-left" data-step="03">
+                <span class="step-radio"></span>
+                <div class="step-body">
+                  <span class="step-title"
+                    ><span class="text-ink-400">03/</span> Hơn 100 bộ lọc cho
+                    kỳ nghỉ phù hợp</span
+                  >
+                </div>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="relative lg:pl-6">
+          <img
+            class="aspect-[4/3] w-full rounded-[28px] object-cover shadow-card"
+            src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=80"
+            alt="Overwater bungalows in clear turquoise sea"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= NEXT JOURNEY CTA ============= -->
+    <section id="book" class="mx-auto max-w-7xl px-5 pb-20 md:px-10 md:pb-28">
+      <div class="cta-card relative overflow-hidden rounded-[28px] md:rounded-[36px]">
+        <img
+          class="absolute inset-0 h-full w-full object-cover"
+          src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=2400&q=80"
+          alt="Sunrise over a calm coastline"
+          loading="lazy"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/30"
+        ></div>
+        <div class="relative px-6 py-14 sm:px-12 md:px-16 md:py-20 lg:py-24">
+          <div class="max-w-xl">
+            <h2
+              class="font-display text-4xl font-medium leading-tight text-white sm:text-5xl md:text-[56px]"
+            >
+              Sẵn sàng cho<br />
+              <span class="font-serif italic font-normal">Hành trình kế tiếp?</span>
+            </h2>
+            <p class="mt-5 max-w-md text-sm text-white/85 md:text-base">
+              Khám phá cách nhanh nhất và thú vị nhất để lên kế hoạch cho
+              chuyến đi mơ ước với giải pháp đơn giản và trực quan.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#"
+                class="rounded-full bg-brand-500 px-6 py-3 text-sm font-medium text-white shadow-cta transition hover:bg-brand-600"
+                >Đặt ngay</a
+              >
+              <a
+                href="#"
+                class="rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur transition hover:bg-white/20"
+                >Tìm hiểu thêm</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= FAQ ============= -->
+    <section
+      id="about"
+      class="mx-auto max-w-3xl px-5 pb-20 text-center md:pb-28"
+    >
+      <h2
+        class="font-display text-4xl font-medium leading-tight text-ink-900 sm:text-5xl md:text-[56px]"
+      >
+        Câu hỏi<br />
+        <span class="font-serif italic font-normal">thường gặp</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-md text-sm text-ink-500">
+        Nếu bạn có thắc mắc hay khó khăn khi sử dụng ứng dụng, hãy gửi câu hỏi
+        đến chúng tôi.
+      </p>
+
+      <div class="mt-12 space-y-2 text-left">
+        <details class="faq-item" open>
+          <summary class="faq-summary">
+            Seashi Trip là gì?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">
+            Các tuỳ chọn như tự nhận phòng hoặc thuê nguyên căn cho phép bạn
+            tương tác với Chủ nhà chủ yếu qua tin nhắn trong ứng dụng &mdash;
+            bạn có thể nhắn bất cứ khi nào có vấn đề phát sinh.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-summary">
+            Seashi là gì và hoạt động ra sao?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">
+            Chúng tôi xác thực hồ sơ cá nhân và danh sách chỗ ở để việc chia sẻ
+            trở nên dễ dàng, thoải mái và an toàn cho hàng triệu Chủ nhà và du
+            khách trên toàn thế giới. Truy cập Trung tâm trợ giúp để có thêm
+            câu trả lời.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-summary">
+            Sử dụng bộ lọc tìm kiếm như thế nào?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">
+            Bộ lọc tìm kiếm giúp bạn chỉ xem các chỗ ở có đúng tiện ích bạn
+            cần. Tìm hiểu thêm về
+            <a class="underline" href="#">cách dùng bộ lọc</a> và khám phá thêm
+            <a class="underline" href="#">các phương thức tìm kiếm linh hoạt</a>.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-summary">
+            Cần làm gì nếu phải huỷ vì sự cố với chỗ ở hoặc Chủ nhà?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p class="faq-answer">
+            Trong hầu hết trường hợp, bạn có thể giải quyết trực tiếp bằng cách
+            nhắn tin cho Chủ nhà. Nếu họ không thể hỗ trợ, hãy liên hệ Seashi
+            trong vòng 24 giờ kể từ khi phát hiện sự cố.
+            <a class="underline" href="#">Tìm hiểu thêm</a>.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============= FOOTER ============= -->
+    <footer
+      id="contact"
+      class="bg-ink-900 text-ink-100"
+    >
+      <div class="mx-auto max-w-7xl px-5 py-14 md:px-10 md:py-20">
+        <div class="grid grid-cols-2 gap-10 md:grid-cols-5">
+          <div class="col-span-2 max-w-xs md:col-span-2">
+            <a href="#" class="font-display text-2xl font-semibold text-white">
+              Seashi<span class="text-brand-400">.</span>
+            </a>
+            <p class="mt-4 text-sm leading-relaxed text-ink-300">
+              Các căn hộ thân thiện với Seashi giúp bạn dễ dàng cho thuê, đón
+              khách và kiếm thêm thu nhập khi vắng nhà.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="footer-heading">Công ty</h4>
+            <ul class="footer-list">
+              <li><a href="#">Giới thiệu</a></li>
+              <li><a href="#">Bảng giá</a></li>
+              <li><a href="#">Bài viết</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-heading">Khám phá</h4>
+            <ul class="footer-list">
+              <li><a href="#">Chương trình đối tác</a></li>
+              <li><a href="#">Seashi là gì</a></li>
+              <li><a href="#">Tài nguyên</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-heading">Sản phẩm</h4>
+            <ul class="footer-list">
+              <li><a href="#">Thị trường</a></li>
+              <li><a href="#">Điều khoản &amp; Điều kiện</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-heading">Trợ giúp</h4>
+            <ul class="footer-list">
+              <li><a href="#">Cộng đồng</a></li>
+              <li><a href="#">Cơ sở tri thức</a></li>
+              <li><a href="#">Hỗ trợ</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-12 flex flex-col gap-5 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div class="flex items-center gap-4 text-ink-300">
+            <a aria-label="Facebook" href="#" class="social-link">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M13.5 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.2-1.4 1.4-1.4H17V5.5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v2.3H7.6V15h2.4v6h3.5z"/></svg>
+            </a>
+            <a aria-label="Twitter" href="#" class="social-link">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M22 5.9a8 8 0 0 1-2.4.6 4.2 4.2 0 0 0 1.8-2.3 8.2 8.2 0 0 1-2.6 1 4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.7a4.1 4.1 0 0 0 1.3 5.5 4 4 0 0 1-1.9-.5 4.1 4.1 0 0 0 3.3 4 4.1 4.1 0 0 1-1.9.1 4.1 4.1 0 0 0 3.8 2.8A8.3 8.3 0 0 1 2 18.2a11.7 11.7 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5A8.4 8.4 0 0 0 22 5.9z"/></svg>
+            </a>
+            <a aria-label="Instagram" href="#" class="social-link">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a aria-label="LinkedIn" href="#" class="social-link">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9.5h4V21H3zM10 9.5h3.8v1.6h.1a4.2 4.2 0 0 1 3.8-2.1c4.1 0 4.8 2.7 4.8 6.2V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-ink-400">
+            &copy; <span id="year"></span> Seashi. Đã đăng ký bản quyền.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
